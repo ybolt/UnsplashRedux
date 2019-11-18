@@ -3,12 +3,12 @@ const state = {
     first: 1,
     last: 25
 }
-export const fetchPhotos = () => dispatch => {
+export const fetchPhotos = (imagesArray) => dispatch => {
     console.log('fetch photos');
-    axios.get(`/api/photos?last=${state.last}&first=${state.first}`)
+    axios.get(`http://localhost:4000/api/photos?last=${state.last}&first=${state.first}`)
         .then(posts => dispatch({
             type: 'NEW_IMAGES',
-            payload: posts.data
+            payload: imagesArray.concat(posts.data)
         }));
 }
 

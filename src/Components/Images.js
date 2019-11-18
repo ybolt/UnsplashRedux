@@ -15,26 +15,18 @@ class Images extends Component {
         last: 25
     };
     componentDidMount() {
-        this.props.fetchPhotos();
+        this.props.fetchPhotos(this.props.images);
         // const { first, last } = this.state;
         // axios.get(`/api/photos?last=${last}&first=${first}`)
         //     .then(res => this.setState({ images: res.data }));
     }
-    fetchData = () => {
-        const { first, last } = this.state;
-        this.setState({ first: this.state.first + last });
 
-        axios.get(`/api/photos?last=${last}&first=${first}`)
-            .then(res =>
-                this.setState({ images: this.state.images.concat(res.data) })
-            );
-    }
     render() {
         return (
             <div className="images">
                 <InfiniteScroll
                     dataLength={this.props.images.length} //This is important field to render the next data
-                    next={this.fetchData}
+                    next={this.props.fetchPhotos(this.props.images)}
                     hasMore={true}
                     loader={<h4>Loading...</h4>}
                     endMessage={
